@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    align-items: center;
+  }
+  .container-register {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+  }
+  
+  .image-side {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .form-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column
+  }
+  
+  .form-header {
+    text-align: center;
+  }
+  
+  .form-button {
+    text-align: center;
+  }
+
+  
+  .form-link {
+    border: none;
+    background: none;
+    color: blue;
+    cursor: pointer;
+    padding: 4px;
+    box-shadow: none;
+  }
+  
+  .animate-from-left {
+    animation: fromLeft 0.5s ease-out;
+  }
+  
+  .animate-from-right {
+    animation: fromRight 0.5s ease-out;
+  }
+  
+  @keyframes fromLeft {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fromRight {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
