@@ -1,0 +1,30 @@
+  .my-scrollable-list {
+    width:  220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .my-scrollable-list::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .my-scrollable-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .my-scrollable-list::-webkit-scrollbar-thumb {
+    background: #E1E1E1;
+    border-radius: 8px;
+  }
+
+  .my-scrollable-list::-webkit-scrollbar-thumb:hover {
+    filter: brightness(0.8);
+    cursor: pointer
+  }
+
+  .my-scrollable-list {
+    scrollbar-width: thin;
+    scrollbar-color: #E1E1E1 #f1f1f1;
+  }
+
+ 
