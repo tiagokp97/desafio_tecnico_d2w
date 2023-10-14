@@ -1,0 +1,18 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E1E1E1;
+  }
+  
+
+  
+  .search-input {
+    max-width: 350px;
+  }
+  
+  .search-input-mobile {
+    max-width: 240px;
+  }
+
+  
