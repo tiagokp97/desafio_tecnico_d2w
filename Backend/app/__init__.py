@@ -5,6 +5,8 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
 import os
+from flask_migrate import Migrate  
+
 load_dotenv()
 
 def create_app():
@@ -13,11 +15,12 @@ def create_app():
     app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.environ.get('JWT_ACCESS_TOKEN_EXPIRES', 3600))
     
-    
-    db.init_app(app)
-    jwt = JWTManager(app)
+    db.init_app(app)  
+    jwt = JWTManager(app)  
 
-    app.register_blueprint(main)
-    CORS(app)
+    Migrate(app, db)  
+
+    app.register_blueprint(main)  
+    CORS(app) 
 
     return app
