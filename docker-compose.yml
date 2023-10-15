@@ -1,33 +1,33 @@
 version: '3'
+
 services:
+  db:
+    image: mysql:5.7
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SQLALCHEMY_DATABASE_URI: "mysql://user:password@db/mydatabase"
+      JWT_SECRET_KEY: "your_jwt_secret_key"
+      JWT_ACCESS_TOKEN_EXPIRES: 3600
+
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
-  backend:
-    build: ./backend
-    environment:
-      SQLALCHEMY_DATABASE_URI: ${SQLALCHEMY_DATABASE_URI}
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
-      JWT_ACCESS_TOKEN_EXPIRES: ${JWT_ACCESS_TOKEN_EXPIRES}
-    ports:
-      - "5000:5000"
-    depends_on:
-      - migrate  
-      - db    
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-    ports:
-      - "3306:3306"
-  migrate:
-    build: ./backend
-    command: ["flask", "db", "upgrade"]
-    environment:
-      SQLALCHEMY_DATABASE_URI: ${SQLALCHEMY_DATABASE_URI}
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
-      JWT_ACCESS_TOKEN_EXPIRES: ${JWT_ACCESS_TOKEN_EXPIRES}
-    depends_on:
-      - db
