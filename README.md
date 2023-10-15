@@ -63,3 +63,23 @@ Isso irá iniciar todos os containers e serviços necessários para o funcioname
 
 Parabéns, agora a aplicação deve estar rodando na sua máquina local! Acesse via navegador ou utilize a API conforme documentação.
 
+
+###  Principais Funcionalidades da Aplicação
+🔐 Criação e Login de Usuários com JWT
+Utilizamos JSON Web Tokens (JWT) para autenticar usuários. Isso permite um fluxo de login seguro e eficaz, com a geração de tokens para sessões autenticadas.
+
+📝 Gerenciamento de Tarefas
+A aplicação permite que os usuários criem, visualizem, atualizem e excluam tarefas. Isso abrange todas as operações CRUD, tornando o gerenciamento de tarefas simples e direto.
+
+🔄 Atualização de Status via Arraste e Solte
+Implementamos uma funcionalidade de arrastar e soltar que permite aos usuários mudar o status de uma tarefa de "Em Andamento" para "Finalizada", arrastando-a para a coluna correspondente.
+
+📅 Registro de Datas
+Cada tarefa possui informações sobre a data de criação, a última atualização e a data de deleção. Isso ajuda a manter um histórico de todas as atividades relacionadas à tarefa.
+
+🗑️ Soft Delete
+A aplicação emprega o conceito de "Soft Delete", permitindo que os itens excluídos sejam recuperados posteriormente. Isso é útil para manter logs precisos e oferece a possibilidade de reaver tarefas que foram excluídas.
+
+🔍 Filtros de Tarefa
+A aplicação oferece um filtro eficaz para tarefas com base no seu título, permitindo que os usuários localizem tarefas "Concluídas" ou "Em Andamento" de forma rápida e eficiente.
+
