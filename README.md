@@ -6,8 +6,6 @@ Desafio Todo-List D2W
 Desafio técnico para a vaga de desenvolvedor Full-Stack.
 
 
-## Tecnologias
-
 # Tecnologias usadas no frontend.
 
 * React 18.2.0
