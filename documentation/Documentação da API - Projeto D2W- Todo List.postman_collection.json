@@ -1,0 +1,1826 @@
+{
+	"info": {
+		"_postman_id": "8317b44e-f8b9-415a-be3b-95cc0a5d94c4",
+		"name": "Documentação da API - Projeto D2W: Todo List",
+		"description": "Bem-vindo à documentação da API para o projeto D2W, um sistema de gestão de tarefas (Todo List) com funcionalidades de CRUD e autenticação de usuário. Este documento tem como objetivo fornecer uma visão abrangente das funcionalidades da API, assim como instruções detalhadas sobre como interagir com ela.\n\nA Todo List perimite aos usuários:\n\n- Registrar novos usuários e autenticá-los\n- Criar, listar, modificar e deletar tarefas\n- Marcar tarefas como concluídas ou não concluídas\n- Filtrar tarefas com base em seu status (concluídas, não concluídas)\n    \n\n## Autenticação\n\nA API usa tokens JWT (JSON Web Token) para autenticação. É necessário gerar um token através da rota de login e incluí-lo no cabeçalho de autorização para acessar rotas protegidas.\n\n## Exemplos de Uso\n\nEsta documentação também inclui exemplos práticos de como usar cada rota, incluindo o formato do corpo da requisição e as respostas esperadas.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30367643",
+		"_collection_link": "https://winter-escape-115766.postman.co/workspace/31b370ef-fa4f-4838-82c7-aa810ce0fa4f/collection/30367643-8317b44e-f8b9-415a-be3b-95cc0a5d94c4?action=share&source=collection_link&creator=30367643"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tiago.pesch@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/register",
+						"description": "## Parâmetros do Corpo da Requisição:\n\n- `email`: Um endereço de e-mail válido que será usado para identificar o usuário.\n    \n- `password`: Uma senha forte para garantir a segurança da conta do usuário."
+					},
+					"response": [
+						{
+							"name": "Register success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tiago.pesch@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/register"
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 14:49:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "48"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User registered successfully\"\n}"
+						},
+						{
+							"name": "Password invalid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tiago.pesch@gmail.com\",\r\n    \"password\": 12345678\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/register"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 14:51:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Password must be a string\"\n}"
+						},
+						{
+							"name": "Password to short",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tiago.pesch@gmail.com\",\r\n    \"password\": \"1238\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/register"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 14:52:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Password must be at least 8 characters long\"\n}"
+						},
+						{
+							"name": "Email invalid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tiago.pesch\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/register"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 14:53:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Email is not a valid email address\"\n}"
+						},
+						{
+							"name": "Email not provided",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/register"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 14:57:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"The Email field must be provided\"\n}"
+						},
+						{
+							"name": "Password not provided",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tiago.pesch@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/register"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 14:57:58 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "53"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"The Password field must be provided\"\n}"
+						},
+						{
+							"name": "Email already in use",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tiago.pesch@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/register"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 14:58:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Email already in use\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tiago.pesch@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/login",
+						"description": "## Parâmetros do Corpo da Requisição:\n\n- `email`: O endereço de e-mail com o qual você se registrou.\n    \n- `password`: A senha associada ao endereço de e-mail fornecido."
+					},
+					"response": [
+						{
+							"name": "Login success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tiago.pesch@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 15:00:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "338"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzI5NTYzNiwianRpIjoiZTZjZTMzMTMtY2ZjNi00MDZkLWE3MWEtZDg1N2Y5MmQ3OTI1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTUsIm5iZiI6MTY5NzI5NTYzNiwiZXhwIjoxNjk3Mjk5MjM2fQ.IeF64ZqzhCZ1CWhL8DAhW2QVL6JGFyTvOc9CK8DS91A\",\n    \"message\": \"Login successful\",\n    \"user_id\": 15\n}"
+						},
+						{
+							"name": "User not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tia.pesch@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/login"
+							},
+							"status": "UNAUTHORIZED",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 15:10:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Bad username or password\"\n}"
+						},
+						{
+							"name": "Username or Password invalid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tia.peschl.com\",\r\n    \"password\": 12345678\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/login"
+							},
+							"status": "UNAUTHORIZED",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 15:12:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Bad username or password\"\n}"
+						},
+						{
+							"name": "Email not provided",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/login"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 15:13:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"The Email field must be provided\"\n}"
+						},
+						{
+							"name": "Password not provided",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tia.pesch@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/login"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 15:14:07 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "53"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"The Password field must be provided\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwOTg5MSwianRpIjoiMTllZjRmMDMtYWY1Yi00MjYxLThlMGEtYmZkNmQ4OGVhYjJhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwOTg5MSwiZXhwIjoxNjk3MzEzNDkxfQ.psToU1jdJiSiBH69N1vCSKvUNim6K-Mftwl0AAhvaQw"
+							}
+						],
+						"url": "http://127.0.0.1:5000/logout",
+						"description": "## Parâmetros do Cabeçalho da Requisição:\n\n- `Authorization`: `Bearer your_access_token_here`"
+					},
+					"response": [
+						{
+							"name": "Logout success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwOTg5MSwianRpIjoiMTllZjRmMDMtYWY1Yi00MjYxLThlMGEtYmZkNmQ4OGVhYjJhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwOTg5MSwiZXhwIjoxNjk3MzEzNDkxfQ.psToU1jdJiSiBH69N1vCSKvUNim6K-Mftwl0AAhvaQw"
+									}
+								],
+								"url": "http://127.0.0.1:5000/logout"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 19:53:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "37"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "access_token_cookie=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "refresh_token_cookie=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Path=/"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Logout successful\"\n}"
+						}
+					]
+				}
+			],
+			"description": "- `POST /register`: Registra um novo usuário\n- `POST /login`: Autentica um usuário existente\n- `POST /logout`: Desloga e limpa o cache e o token do usuário"
+		},
+		{
+			"name": "Tarefas(items)",
+			"item": [
+				{
+					"name": "Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMDA4MiwianRpIjoiNmQ4YjZlNTUtMDFiNy00ZmIyLWIzYTctYzQ3YTc3NmM5MDFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwMDA4MiwiZXhwIjoxNjk3MzAzNjgyfQ.HONKe3enRd-JSvyRO4KoP9edwX6IvLO2p1TNgSIdx0o",
+								"type": "text"
+							}
+						],
+						"url": "{{baseUrl}}/items",
+						"description": "## Parâmetros do Cabeçalho da Requisição:\n\n- `Authorization`: `Bearer your_access_token_here`"
+					},
+					"response": [
+						{
+							"name": "Get successs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzI5NTYzNiwianRpIjoiZTZjZTMzMTMtY2ZjNi00MDZkLWE3MWEtZDg1N2Y5MmQ3OTI1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTUsIm5iZiI6MTY5NzI5NTYzNiwiZXhwIjoxNjk3Mjk5MjM2fQ.IeF64ZqzhCZ1CWhL8DAhW2QVL6JGFyTvOc9CK8DS91A",
+										"type": "text"
+									}
+								],
+								"url": "{{baseUrl}}/items"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 15:17:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "859"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"completed\": 0,\n        \"created_at\": \"Fri, 13 Oct 2023 20:27:49 GMT\",\n        \"description\": \"Eu preciso lavar a louça\",\n        \"finished_at\": \"Fri, 13 Oct 2023 00:00:00 GMT\",\n        \"id\": 85,\n        \"title\": \"Tarefa 1\",\n        \"updated_at\": \"Fri, 13 Oct 2023 20:47:06 GMT\",\n        \"user_id\": 14\n    },\n    {\n        \"completed\": 0,\n        \"created_at\": \"Fri, 13 Oct 2023 20:28:03 GMT\",\n        \"description\": \"Preciso arrumar a cama\",\n        \"finished_at\": \"Fri, 13 Oct 2023 00:00:00 GMT\",\n        \"id\": 86,\n        \"title\": \"Tarefa 2\",\n        \"updated_at\": \"Fri, 13 Oct 2023 20:28:03 GMT\",\n        \"user_id\": 14\n    },\n    {\n        \"completed\": 0,\n        \"created_at\": \"Fri, 13 Oct 2023 20:28:19 GMT\",\n        \"description\": \"Ir para academia\",\n        \"finished_at\": \"Fri, 13 Oct 2023 00:00:00 GMT\",\n        \"id\": 87,\n        \"title\": \"Tarefa 3\",\n        \"updated_at\": \"Sat, 14 Oct 2023 10:46:30 GMT\",\n        \"user_id\": 14\n    }\n]"
+						},
+						{
+							"name": "No elements",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+									}
+								],
+								"url": "{{baseUrl}}/items"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 16:55:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						}
+					]
+				},
+				{
+					"name": "Create item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\":\"New task\",\"userId\":\"16\",\"description\":\"Task description\"}"
+						},
+						"url": "http://127.0.0.1:5000/items",
+						"description": "## Parâmetros do Cabeçalho da Requisição:\n\n- `Authorization`: `Bearer your_access_token_here`\n    \n\nInclua o token de acesso no cabeçalho para autenticar a sua requisição.\n\n## Parâmetros do Corpo da Requisição:\n\nVocê deve enviar um objeto JSON com os seguintes campos:\n\n- `title` (obrigatório): O título do item. Mínimo de 3 caracteres\n    \n- `userId` (obrigatório): O ID do usuário que está criando o item.\n    \n- `description` (opcional): Uma descrição adicional para o item. Limite de até 500 caracteres\n    \n- `completed` (opcional): Status do item, `1` para concluído e `0` para não concluído. O padrão é `0`."
+					},
+					"response": [
+						{
+							"name": "Create Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMDA4MiwianRpIjoiNmQ4YjZlNTUtMDFiNy00ZmIyLWIzYTctYzQ3YTc3NmM5MDFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwMDA4MiwiZXhwIjoxNjk3MzAzNjgyfQ.HONKe3enRd-JSvyRO4KoP9edwX6IvLO2p1TNgSIdx0o"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"Nova Tarefa\",\"userId\":\"14\",\"description\":\"Descrição da tarefa\"}"
+								},
+								"url": "{{baseUrl}}/items"
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 16:25:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "275"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"completed\": 0,\n    \"created_at\": \"Sat, 14 Oct 2023 13:25:53 GMT\",\n    \"description\": \"Descrição da tarefa\",\n    \"finished_at\": \"Sat, 14 Oct 2023 00:00:00 GMT\",\n    \"id\": 100,\n    \"title\": \"Nova Tarefa\",\n    \"updated_at\": \"Sat, 14 Oct 2023 13:25:53 GMT\",\n    \"user_id\": 14\n}"
+						},
+						{
+							"name": "Tried create item from another user id",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"Nova Tarefa\",\"userId\":\"14\",\"description\":\"Descrição da tarefa\"}"
+								},
+								"url": "{{baseUrl}}/items"
+							},
+							"status": "UNAUTHORIZED",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 16:52:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "74"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"User ID from token does not match User ID in the request\"\n}"
+						},
+						{
+							"name": "Title not provided",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"userId\":\"16\",\"description\":\"Task description\"}"
+								},
+								"url": "http://127.0.0.1:5000/items"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 17:08:11 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Invalid title. It must be a string between 3 and 100 characters.\"\n}"
+						},
+						{
+							"name": "Title to short",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"Ne\",\"userId\":\"16\",\"description\":\"Task description\"}"
+								},
+								"url": "http://127.0.0.1:5000/items"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 17:10:16 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Invalid title. It must be a string between 3 and 100 characters.\"\n}"
+						},
+						{
+							"name": "user_id not provided",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"New task\",\"description\":\"Task description\"}"
+								},
+								"url": "http://127.0.0.1:5000/items"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 17:12:58 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"The user_id parameter is required.\"\n}"
+						},
+						{
+							"name": "Create without description",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"New task\",\"userId\":\"16\"}"
+								},
+								"url": "http://127.0.0.1:5000/items"
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 17:13:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "245"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"completed\": 0,\n    \"created_at\": \"Sat, 14 Oct 2023 14:13:53 GMT\",\n    \"description\": null,\n    \"finished_at\": \"Sat, 14 Oct 2023 00:00:00 GMT\",\n    \"id\": 106,\n    \"title\": \"New task\",\n    \"updated_at\": \"Sat, 14 Oct 2023 14:13:53 GMT\",\n    \"user_id\": 16\n}"
+						},
+						{
+							"name": "Invalid number in the completed field",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"New task\",\"userId\":\"16\",\"description\":\"Task description\", \"completed\": 2}"
+								},
+								"url": "http://127.0.0.1:5000/items"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 17:14:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Invalid completed status. It must be either 0 or 1.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Patch item",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwOTg5MSwianRpIjoiMTllZjRmMDMtYWY1Yi00MjYxLThlMGEtYmZkNmQ4OGVhYjJhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwOTg5MSwiZXhwIjoxNjk3MzEzNDkxfQ.psToU1jdJiSiBH69N1vCSKvUNim6K-Mftwl0AAhvaQw"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\":\"New title\",\"description\":\"New description\",\"completed\":0}"
+						},
+						"url": "{{baseUrl}}/items/101",
+						"description": "## API Endpoint para Atualizar um Item\n\n- `PATCH /items/{item_id}`\n    \n\nOnde `{item_id}` é o identificador único do item que você deseja atualizar.\n\n## Parâmetros do Cabeçalho da Requisição:\n\n- `Authorization`: `Bearer your_access_token_here`\n    \n\nVocê precisa incluir o token de acesso no cabeçalho para autenticar a requisição.\n\n## Parâmetros do Corpo da Requisição:\n\nEnvie um objeto JSON contendo qualquer combinação dos seguintes campos que você deseja atualizar:\n\n- `title` (opcional): O novo título do item.\n    \n- `description` (opcional): A nova descrição para o item.\n    \n- `completed` (opcional): O novo status do item, `1` para concluído e `0` para não concluído."
+					},
+					"response": [
+						{
+							"name": "Title not provided",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwNjIzMywianRpIjoiOGY2OTgxY2MtZjExZi00NmY1LTk3MWItNTUyMjA5OGQyNWY1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwNjIzMywiZXhwIjoxNjk3MzA5ODMzfQ.-EXUb2oWog14OljieM6Og6B5CdDGF2OVwv8Sb8vz4Ew"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"description\":\"New description\",\"completed\":0}"
+								},
+								"url": "{{baseUrl}}/items/{{productid}}"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 17:59:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"The title parameter is required.\"\n}"
+						},
+						{
+							"name": "Title to short",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwNjIzMywianRpIjoiOGY2OTgxY2MtZjExZi00NmY1LTk3MWItNTUyMjA5OGQyNWY1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwNjIzMywiZXhwIjoxNjk3MzA5ODMzfQ.-EXUb2oWog14OljieM6Og6B5CdDGF2OVwv8Sb8vz4Ew"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"Ne\",\"description\":\"New description\",\"completed\":0}"
+								},
+								"url": "{{baseUrl}}/items/{{productid}}"
+							},
+							"status": "BAD REQUEST",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 18:21:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Invalid title. It must be a string between 3 and 100 characters.\"\n}"
+						},
+						{
+							"name": "Update product from another user",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwNjIzMywianRpIjoiOGY2OTgxY2MtZjExZi00NmY1LTk3MWItNTUyMjA5OGQyNWY1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwNjIzMywiZXhwIjoxNjk3MzA5ODMzfQ.-EXUb2oWog14OljieM6Og6B5CdDGF2OVwv8Sb8vz4Ew"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"New title\",\"description\":\"New description\",\"completed\":0}"
+								},
+								"url": "{{baseUrl}}/items/{{productid}}"
+							},
+							"status": "UNAUTHORIZED",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 18:35:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "74"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"User ID from token does not match User ID in the request\"\n}"
+						},
+						{
+							"name": "No fields updated",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwNjIzMywianRpIjoiOGY2OTgxY2MtZjExZi00NmY1LTk3MWItNTUyMjA5OGQyNWY1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwNjIzMywiZXhwIjoxNjk3MzA5ODMzfQ.-EXUb2oWog14OljieM6Og6B5CdDGF2OVwv8Sb8vz4Ew"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"New title\"}"
+								},
+								"url": "{{baseUrl}}/items/{{productid}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 18:43:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"No fields were updated\"\n}"
+						},
+						{
+							"name": "Update success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwOTg5MSwianRpIjoiMTllZjRmMDMtYWY1Yi00MjYxLThlMGEtYmZkNmQ4OGVhYjJhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwOTg5MSwiZXhwIjoxNjk3MzEzNDkxfQ.psToU1jdJiSiBH69N1vCSKvUNim6K-Mftwl0AAhvaQw"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"New title\",\"description\":\"New description\",\"completed\":0}"
+								},
+								"url": "{{baseUrl}}/items/{{productid}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 18:59:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"completed\": 0,\n    \"description\": \"New description\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwNjIzMywianRpIjoiOGY2OTgxY2MtZjExZi00NmY1LTk3MWItNTUyMjA5OGQyNWY1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwNjIzMywiZXhwIjoxNjk3MzA5ODMzfQ.-EXUb2oWog14OljieM6Og6B5CdDGF2OVwv8Sb8vz4Ew"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "0"
+						},
+						"url": "http://127.0.0.1:5000/items_status/101",
+						"description": "## API Endpoint para Atualizar o Status de um Item\n\n- `PUT /items/item_status/{item_id}`\n    \n\nNeste caso, `{item_id}` é o identificador único do item cujo status você deseja atualizar.\n\n## Parâmetros do Cabeçalho da Requisição:\n\n- `Authorization`: `Bearer your_access_token_here`\n    \n\nPara autenticar a requisição, você precisa incluir o token de acesso no cabeçalho.\n\n## Parâmetros do Corpo da Requisição:\n\nEnvie um objeto JSON com o seguinte campo:\n\n- `completed`: O novo status do item, onde `1` indica que o item está concluído e `0` indica que não está concluído."
+					},
+					"response": [
+						{
+							"name": "Updated field",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwNjIzMywianRpIjoiOGY2OTgxY2MtZjExZi00NmY1LTk3MWItNTUyMjA5OGQyNWY1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwNjIzMywiZXhwIjoxNjk3MzA5ODMzfQ.-EXUb2oWog14OljieM6Og6B5CdDGF2OVwv8Sb8vz4Ew"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "0"
+								},
+								"url": "http://127.0.0.1:5000/items_status/101"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 19:02:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"completed\": 0\n}"
+						},
+						{
+							"name": "No fields changed",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwNjIzMywianRpIjoiOGY2OTgxY2MtZjExZi00NmY1LTk3MWItNTUyMjA5OGQyNWY1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTQsIm5iZiI6MTY5NzMwNjIzMywiZXhwIjoxNjk3MzA5ODMzfQ.-EXUb2oWog14OljieM6Og6B5CdDGF2OVwv8Sb8vz4Ew"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "0"
+								},
+								"url": "http://127.0.0.1:5000/items_status/101"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 19:02:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"No fields were updated\"\n}"
+						}
+					]
+				}
+			],
+			"description": "- `GET /items`: Retorna todas as tarefas do usuário autenticado.\n- `POST /items`: Cria uma nova tarefa.\n- `PUT /items/{id}`: Atualiza uma tarefa existente.\n- `DELETE /items/{id}`: Deleta uma tarefa."
+		},
+		{
+			"name": "Default responses",
+			"item": [
+				{
+					"name": "Default",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/",
+						"description": "## Default Responses\n\n## API Working\n\n- **Endpoint:** `GET /`\n    \n- **Response Code:** `200 OK`\n    \n- **Response Body:** `{\"message\": \"API is working\"}`\n    \n\nAo fazer uma requisição para a raiz do servidor, se tudo estiver funcionando como esperado, você deverá ver uma mensagem dizendo que a API está funcionando.\n\n---\n\n## Token Expired\n\n- **Response Code:** `401 Unauthorized`\n    \n- **Response Body:** `{\"error\": \"Token has expired\"}`\n    \n\nSe o token de acesso fornecido expirou, essa resposta será retornada. Neste caso, você precisará obter um novo token de acesso.\n\n---\n\n## Invalid Token\n\n- **Response Code:** `401 Unauthorized`\n    \n- **Response Body:** `{\"error\": \"Invalid token\"}`\n    \n\nSe o token de acesso fornecido for inválido ou adulterado, essa resposta será retornada.\n\n---\n\n## Missing Authorization\n\n- **Response Code:** `401 Unauthorized`\n    \n- **Response Body:** `{\"error\": \"Missing authorization\"}`"
+					},
+					"response": [
+						{
+							"name": "Api working",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{baseUrl}}/"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 19:05:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"working\": \"true\"\n}"
+						},
+						{
+							"name": "Token expired",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"New title\",\"description\":\"New description\",\"completed\":0}"
+								},
+								"url": "{{baseUrl}}/items/{{productid}}"
+							},
+							"status": "UNAUTHORIZED",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 17:56:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Token has expired\"\n}"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzMwMjExNCwianRpIjoiOWVjYjM1YmUtYTFlZS00NmRiLTgzYzUtODA4ZDgzMjhhYTJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTYsIm5iZiI6MTY5NzMwMjExNCwiZXhwIjoxNjk3MzA1NzE0fQ.ixIUh96NHxaTB5hkV95aJuAuh6-vKJvxJkXUUydDzj8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\":\"New title\",\"description\":\"New description\",\"completed\":0}"
+								},
+								"url": "{{baseUrl}}/items/{{productid}}"
+							},
+							"status": "UNPROCESSABLE ENTITY",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 17:56:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "109"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Invalid header string: 'utf-8' codec can't decode byte 0x88 in position 6: invalid start byte\"\n}"
+						},
+						{
+							"name": "Missing Authorization",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzI5NTYzNiwianRpIjoiZTZjZTMzMTMtY2ZjNi00MDZkLWE3MWEtZDg1N2Y5MmQ3OTI1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTUsIm5iZiI6MTY5NzI5NTYzNiwiZXhwIjoxNjk3Mjk5MjM2fQ.IeF64ZqzhCZ1CWhL8DAhW2QVL6JGFyTvOc9CK8DS91A",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{baseUrl}}/items"
+							},
+							"status": "UNAUTHORIZED",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.0 Python/3.11.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Oct 2023 15:18:19 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Missing Authorization Header\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Estas são respostas padrão que ajudam no diagnóstico e tratamento de questões relacionadas à autenticação e ao estado do serviço."
+		}
+	]
+}
