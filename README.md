@@ -83,10 +83,15 @@ A aplicação oferece um filtro eficaz para tarefas com base no seu título, per
 
 ### Documentação
 
-A documentação completa da aplicação, com todos os tipos de retorno de cada rota, podem ser encontrados neste link:
+A documentação completa da aplicação, com todos os tipos de retorno de cada rota, podem ser encontrados nestes links:
+```
+https://documenter.getpostman.com/view/30367643/2s9YR6aE1f
+```
+
 ```
 https://winter-escape-115766.postman.co/workspace/New-Team-Workspace~31b370ef-fa4f-4838-82c7-aa810ce0fa4f/collection/30367643-8317b44e-f8b9-415a-be3b-95cc0a5d94c4?action=share&creator=30367643
 ```
+
 E também pode ser importado no seu próprio postman, utilizando o arquivo collection "Documentação da API - Projeto D2W- Todo List.postman_collection.json" disposto na pasta "documentation" na raiz do projeto
 
 É importante lembrar, que para testar as rotas e seus possíveis retornos, é necessário manter a aplicação rodando conforme disposto no início do texto.
